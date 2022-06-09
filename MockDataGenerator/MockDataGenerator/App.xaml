@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:MockDataGenerator"
              StartupUri="/MVVM/View/MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Themes -->
+                <ResourceDictionary Source="./Theme/MenuTitleTheme.xaml"/>
+                <ResourceDictionary Source="./Theme/MenuRadioButton.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

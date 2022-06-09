@@ -1,0 +1,95 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                    xmlns:extensions="clr-namespace:MockDataGenerator.Core">
+    
+    <Storyboard x:Key="MenuTitleAnimation">
+        <DoubleAnimation Storyboard.TargetName="MenuTitle"
+                                                    Storyboard.TargetProperty="(Border.Width)"
+                                                    From="40" To="140"
+                                                    Duration="0:0:.1"/>
+        <DoubleAnimation Storyboard.TargetName="MenuTitle"
+                                                    Storyboard.TargetProperty="(Border.Height)"
+                                                    From="40" To="60"
+                                                    Duration="0:0:.1"/>
+    </Storyboard>
+    
+    <Style TargetType="Label" x:Key="MenuTitleTheme">
+        <Setter Property="Background" Value="Transparent"/>
+        <!--<Setter Property="Width" Value="140"/>
+        <Setter Property="Height" Value="60"/>-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Label">
+                    <Border x:Name="MenuTitle" 
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            CornerRadius="3"
+                            BorderBrush="#4d0066"
+                            BorderThickness="1">
+
+                        
+                        <Border.Background>
+                            <RadialGradientBrush
+                                GradientOrigin="-0.3,0.5"
+                                Center="-0.3,0.5"
+                                RadiusX="0.5" RadiusY="0.5">
+                                <GradientStop Color="#9900cc" Offset="0"/>
+                                <GradientStop Color="Black" Offset="3"/>
+                            </RadialGradientBrush>
+                        </Border.Background>
+
+                        <Grid>
+
+                            <Image Name="MenuTitleImage" 
+                                   Source="{Binding Path=(extensions:Extensions.Icon), RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                   Width="35" Height="35"/>
+
+                            <TextBlock Name="MenuTitleTextBlock" 
+                                       Text="{TemplateBinding Content}"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       FontSize="{TemplateBinding FontSize}"
+                                       TextAlignment="Center"
+                                       Padding="4"
+                                       Background="Transparent"
+                                       FontFamily="Segoe UI Light"
+                                       FontWeight="Bold"
+                                       Opacity="0"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=MenuTitle, Path=Width}" Value="140">
+                            <DataTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="MenuTitleTextBlock"
+                                                         Storyboard.TargetProperty="(TextBlock.Opacity)"
+                                                         To="1"
+                                                         Duration="0:0:.1"/>
+                                        <DoubleAnimation Storyboard.TargetName="MenuTitleImage"
+                                                         Storyboard.TargetProperty="(Image.Opacity)"
+                                                         To="0"
+                                                         Duration="0:0:.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.EnterActions>
+                            <DataTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="MenuTitleTextBlock"
+                                                         Storyboard.TargetProperty="(TextBlock.Opacity)"
+                                                         To="0"
+                                                         Duration="0:0:.1"/>
+                                        <DoubleAnimation Storyboard.TargetName="MenuTitleImage"
+                                                         Storyboard.TargetProperty="(Image.Opacity)"
+                                                         To="1"
+                                                         Duration="0:0:.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </DataTrigger.ExitActions>
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
