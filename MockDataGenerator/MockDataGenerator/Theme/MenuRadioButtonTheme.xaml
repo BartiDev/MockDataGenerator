@@ -42,7 +42,7 @@
                                         GradientOrigin="-0.3,0.5"
                                         Center="-0.3,0.5"
                                         RadiusX="0.5" RadiusY="0.5">
-                                        <GradientStop Color="#660066" Offset="0"/>
+                                        <GradientStop Color="#800080" Offset="0"/>
                                         <GradientStop Color="Black" Offset="3"/>
                                     </RadialGradientBrush>
                                 </Setter.Value>

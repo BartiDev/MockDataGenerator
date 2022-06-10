@@ -1,22 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
                     xmlns:extensions="clr-namespace:MockDataGenerator.Core">
-    
-    <Storyboard x:Key="MenuTitleAnimation">
-        <DoubleAnimation Storyboard.TargetName="MenuTitle"
-                                                    Storyboard.TargetProperty="(Border.Width)"
-                                                    From="40" To="140"
-                                                    Duration="0:0:.1"/>
-        <DoubleAnimation Storyboard.TargetName="MenuTitle"
-                                                    Storyboard.TargetProperty="(Border.Height)"
-                                                    From="40" To="60"
-                                                    Duration="0:0:.1"/>
-    </Storyboard>
-    
+
     <Style TargetType="Label" x:Key="MenuTitleTheme">
         <Setter Property="Background" Value="Transparent"/>
-        <!--<Setter Property="Width" Value="140"/>
-        <Setter Property="Height" Value="60"/>-->
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Label">
@@ -56,6 +43,7 @@
                                        Opacity="0"/>
                         </Grid>
                     </Border>
+                    
                     <ControlTemplate.Triggers>
                         <DataTrigger Binding="{Binding ElementName=MenuTitle, Path=Width}" Value="140">
                             <DataTrigger.EnterActions>
@@ -88,6 +76,7 @@
                             </DataTrigger.ExitActions>
                         </DataTrigger>
                     </ControlTemplate.Triggers>
+                    
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

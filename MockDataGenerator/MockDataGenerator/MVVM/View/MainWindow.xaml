@@ -76,8 +76,8 @@
                 Width="50"
                 HorizontalAlignment="Left"
                 ClipToBounds="False">
+            
         <!-- Menu folding -->
-
             <Border.Triggers>
                 <EventTrigger RoutedEvent="Border.MouseEnter">
                     <BeginStoryboard>
@@ -93,9 +93,16 @@
                                              Storyboard.TargetProperty="(Label.Height)"
                                              To="60"
                                              Duration="0:0:.1"/>
+                            <DoubleAnimation Storyboard.Target="{Binding Source={x:Reference LoginButton}}"
+                                             Storyboard.TargetProperty="(Button.Width)"
+                                             To="140"
+                                             Duration="0:0:.1"/>
+                            <DoubleAnimation Storyboard.TargetName="WindowContentBlurrEffect"
+                                             Storyboard.TargetProperty="Radius"
+                                             To="10"
+                                             Duration="0:0:.1"/>
                         </Storyboard>
                     </BeginStoryboard>
-                    <!--<BeginStoryboard Storyboard="{StaticResource MenuTitleAnimation}"/>-->
                 </EventTrigger>
                 <EventTrigger RoutedEvent="Border.MouseLeave">
                     <BeginStoryboard>
@@ -111,36 +118,72 @@
                                              Storyboard.TargetProperty="(Label.Height)"
                                              To="40"
                                              Duration="0:0:.1"/>
+                            <DoubleAnimation Storyboard.Target="{Binding Source={x:Reference LoginButton}}"
+                                             Storyboard.TargetProperty="(Button.Width)"
+                                             To="40"
+                                             Duration="0:0:.1"/>
+                            <DoubleAnimation Storyboard.TargetName="WindowContentBlurrEffect"
+                                             Storyboard.TargetProperty="Radius"
+                                             To="0"
+                                             Duration="0:0:.1"/>
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
             </Border.Triggers>
 
-
-            
-            <StackPanel>
-                <Label x:Name="MenuTitle"
-                       Width="40" Height="40"
-                       Content="Generate&#x0a;Mock Data"
-                       Foreground="White"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       Padding="4"
-                       FontSize="18"
-                       Margin="0,10,0,20"
-                       extensions:Extensions.Icon="..\..\Icon\Menu.png"
-                       Style="{StaticResource MenuTitleTheme}"/>
-                <RadioButton Content="General"
-                             Foreground="White"
-                             FontSize="18"
-                             extensions:Extensions.Icon="..\..\Icon\Dice.png"/>
-                <RadioButton Content="BartiCinema"
-                             Foreground="White"
-                             FontSize="18"
-                             extensions:Extensions.Icon="..\..\Icon\Popcorn.png"/>
-            </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <StackPanel>
+                    <Label x:Name="MenuTitle"
+                           Width="40" Height="40"
+                           Content="Generate&#x0a;Mock Data"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Padding="4"
+                           FontSize="18"
+                           Margin="0,10,0,20"
+                           extensions:Extensions.Icon="..\..\Icon\Menu.png"
+                           Style="{StaticResource MenuTitleTheme}"/>
+                    <RadioButton Content="General"
+                                 Foreground="White"
+                                 FontSize="18"
+                                 extensions:Extensions.Icon="..\..\Icon\Dice.png"/>
+                    <RadioButton Content="BartiCinema"
+                                 Foreground="White"
+                                 FontSize="18"
+                                 extensions:Extensions.Icon="..\..\Icon\Popcorn.png"/>
+                </StackPanel>
+                
+                <Button Name="LoginButton"
+                        Grid.Row="1" 
+                        Width="40" Height="40"
+                        Content="Login"
+                        FontSize="18"
+                        Style="{StaticResource MenuLoginButtonTheme}"
+                        Command="{Binding OpenLoginViewCommand}"/>
+            </Grid>
         </Border>
+
+        <Grid Grid.Column="1"
+              Grid.Row="1"
+              Panel.ZIndex="-1">
+            <Grid.Effect>
+                <BlurEffect x:Name="WindowContentBlurrEffect" Radius="0"/>
+            </Grid.Effect>
+            
+            <ContentPresenter Content="{Binding CurrentView}"/>
+            
+            <Image IsHitTestVisible="False" 
+                   Source="/Icon/WorkspaceBackground.png"
+                   Opacity=".1"/>
+            
+        </Grid>
         
-        
+
     </Grid>
 </Window>

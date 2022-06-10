@@ -10,8 +10,11 @@
     <None Remove="Icon\Dice.png" />
     <None Remove="Icon\DiceWhite.png" />
     <None Remove="Icon\Menu.png" />
+    <None Remove="Icon\MockarooLogo.png" />
     <None Remove="Icon\Popcorn.png" />
     <None Remove="Icon\PopcornWhite.png" />
+    <None Remove="Icon\User.png" />
+    <None Remove="Icon\WorkspaceBackground.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +24,10 @@
   <ItemGroup>
     <Resource Include="Icon\Dice.png" />
     <Resource Include="Icon\Menu.png" />
+    <Resource Include="Icon\MockarooLogo.png" />
     <Resource Include="Icon\Popcorn.png" />
+    <Resource Include="Icon\User.png" />
+    <Resource Include="Icon\WorkspaceBackground.png" />
   </ItemGroup>
 
 </Project>

@@ -2,14 +2,25 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:MockDataGenerator"
+             xmlns:vm="clr-namespace:MockDataGenerator.MVVM.ViewModel"
+             xmlns:view="clr-namespace:MockDataGenerator.MVVM.View"
              StartupUri="/MVVM/View/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <!-- Themes -->
                 <ResourceDictionary Source="./Theme/MenuTitleTheme.xaml"/>
-                <ResourceDictionary Source="./Theme/MenuRadioButton.xaml"/>
+                <ResourceDictionary Source="./Theme/MenuRadioButtonTheme.xaml"/>
+                <ResourceDictionary Source="./Theme/MenuLoginButtonTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            
+            <!-- Register VMs -->
+            <DataTemplate DataType="{x:Type vm:WelcomeViewModel}">
+                <view:WelcomeView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+                <view:LoginView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
