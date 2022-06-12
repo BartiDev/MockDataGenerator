@@ -4,15 +4,45 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MockDataGenerator.MVVM.View"
+             xmlns:extensions="clr-namespace:MockDataGenerator.Core"
+             xmlns:viewmodel="clr-namespace:MockDataGenerator.MVVM.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Background="Transparent">
+    <UserControl.DataContext>
+        <viewmodel:LoginViewModel/>
+    </UserControl.DataContext>
     <Grid>
         <StackPanel HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-            <TextBlock Text="Login page"
-                       FontSize="40"
-                       Foreground="White"/>
+                    VerticalAlignment="Center"
+                    Margin="0,0,0,100">
+            <TextBlock Text="Login"
+                       FontFamily="Segoe UI Light"
+                       FontSize="44"
+                       FontWeight="ExtraBold"
+                       Foreground="White"
+                       TextAlignment="Center"
+                       Margin="0,0,0,30"/>
+            <TextBox Width="300"
+                     Height="40"
+                     Text="{Binding Username, Mode=TwoWay}"
+                     Margin="0,0,0,8"
+                     extensions:Extensions.Icon="/Icon/LoginFormUser.png"
+                     extensions:Extensions.WatermarkText="Username"
+                     Style="{StaticResource LoginFormTextBoxTheme}"/>
+            <TextBox Width="300"
+                     Height="40"
+                     Text="{Binding ApiKey, Mode=TwoWay}"
+                     extensions:Extensions.Icon="/Icon/LoginFormKey.png"
+                     extensions:Extensions.WatermarkText="API-Key"
+                     Style="{StaticResource LoginFormTextBoxTheme}"/>
+            <Button Content="Login"
+                    Width="150" Height="30"
+                    FontSize="20"
+                    Margin="15,15,0,0"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource RedButtonTheme}"
+                    Command="{Binding LoginCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

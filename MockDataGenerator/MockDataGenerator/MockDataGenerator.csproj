@@ -9,6 +9,8 @@
   <ItemGroup>
     <None Remove="Icon\Dice.png" />
     <None Remove="Icon\DiceWhite.png" />
+    <None Remove="Icon\LoginFormKey.png" />
+    <None Remove="Icon\LoginFormUser.png" />
     <None Remove="Icon\Menu.png" />
     <None Remove="Icon\MockarooLogo.png" />
     <None Remove="Icon\Popcorn.png" />
@@ -23,6 +25,8 @@
 
   <ItemGroup>
     <Resource Include="Icon\Dice.png" />
+    <Resource Include="Icon\LoginFormKey.png" />
+    <Resource Include="Icon\LoginFormUser.png" />
     <Resource Include="Icon\Menu.png" />
     <Resource Include="Icon\MockarooLogo.png" />
     <Resource Include="Icon\Popcorn.png" />

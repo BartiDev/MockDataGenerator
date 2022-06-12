@@ -180,7 +180,8 @@
             
             <Image IsHitTestVisible="False" 
                    Source="/Icon/WorkspaceBackground.png"
-                   Opacity=".1"/>
+                   Opacity=".1"
+                   Panel.ZIndex="-2"/>
             
         </Grid>
         

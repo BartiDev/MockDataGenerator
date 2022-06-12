@@ -12,6 +12,8 @@
                 <ResourceDictionary Source="./Theme/MenuTitleTheme.xaml"/>
                 <ResourceDictionary Source="./Theme/MenuRadioButtonTheme.xaml"/>
                 <ResourceDictionary Source="./Theme/MenuLoginButtonTheme.xaml"/>
+                <ResourceDictionary Source="./Theme/LoginFormTextBoxTheme.xaml"/>
+                <ResourceDictionary Source="./Theme/RedButtonTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <!-- Register VMs -->
