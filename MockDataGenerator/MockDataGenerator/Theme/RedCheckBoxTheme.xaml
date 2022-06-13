@@ -1,0 +1,62 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="CheckBox" x:Key="RedCheckBoxTheme">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <StackPanel Orientation="Horizontal"
+                                Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}">
+                        <Grid>
+                            <Border Name="CheckMarkBorder"
+                                    Width="20" Height="20"
+                                    CornerRadius="3"
+                                    BorderThickness="1.5"
+                                    BorderBrush="#33001a">
+                                <!--<Border.Style>
+                                    <Style>
+                                        <Style.Triggers>
+                                            <Trigger Property="Border.IsMouseOver" Value="True">
+                                                <Setter Property="Border.BorderBrush" Value="#660035"/>
+                                                <Setter Property="Border.Width" Value="22"/>
+                                                <Setter Property="Border.Height" Value="22"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>-->
+                            </Border>
+                            <TextBlock Name="CheckMarkTextBlock"
+                                       Width="{Binding ElementName=CheckMarkBorder, Path=Width}"
+                                       Height="{Binding ElementName=CheckMarkTextBlock, Path=Height}"
+                                       Text=""
+                                       Foreground="#99004f"
+                                       FontSize="16"
+                                       FontWeight="Bold"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center"/>
+                        </Grid>
+                        <ContentPresenter Name="CheckBoxContentPresenter"
+                                          VerticalAlignment="Center"
+                                          Margin="8,0,0,0"/>
+                    </StackPanel>
+                    
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="CheckMarkTextBlock" Property="Text" Value="✓"/>
+                            <Setter TargetName="CheckMarkBorder" Property="BorderBrush" Value="#99004f"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="CheckMarkTextBlock" Property="Foreground" Value="#660035"/>
+                            <Setter TargetName="CheckMarkTextBlock" Property="FontSize" Value="18"/>
+                            <Setter TargetName="CheckMarkBorder" Property="BorderBrush" Value="#660035"/>
+                            <Setter TargetName="CheckMarkBorder" Property="Width" Value="22"/>
+                            <Setter TargetName="CheckMarkBorder" Property="Height" Value="22"/>
+                            <Setter TargetName="CheckBoxContentPresenter" Property="Margin" Value="6,0,0,0"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

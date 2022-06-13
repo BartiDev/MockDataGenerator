@@ -12,6 +12,7 @@
     <UserControl.DataContext>
         <viewmodel:LoginViewModel/>
     </UserControl.DataContext>
+    
     <Grid>
         <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -36,13 +37,24 @@
                      extensions:Extensions.Icon="/Icon/LoginFormKey.png"
                      extensions:Extensions.WatermarkText="API-Key"
                      Style="{StaticResource LoginFormTextBoxTheme}"/>
-            <Button Content="Login"
-                    Width="150" Height="30"
-                    FontSize="20"
-                    Margin="15,15,0,0"
-                    HorizontalAlignment="Left"
-                    Style="{StaticResource RedButtonTheme}"
-                    Command="{Binding LoginCommand}"/>
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,15,0,0">
+                <Button Content="Login"
+                        Width="150" Height="30"
+                        FontSize="20"
+                        Margin="15,0,0,0"
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource RedButtonTheme}"
+                        Command="{Binding LoginCommand}"/>
+                <CheckBox Content="Remember Me"
+                          Width="110" Height="30"
+                          Foreground="White"
+                          FontFamily="Segoe UI Light"
+                          IsChecked="{Binding RememberMe, Mode=TwoWay, FallbackValue=False}"
+                          VerticalAlignment="Center"
+                          Margin="15,0,0,0"
+                          Style="{StaticResource RedCheckBoxTheme}"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

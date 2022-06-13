@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MVVM\Model\" />
+    <PackageReference Include="Meziantou.Framework.Win32.CredentialManager" Version="1.4.2" />
   </ItemGroup>
 
   <ItemGroup>
