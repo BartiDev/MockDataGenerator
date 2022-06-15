@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MockDataGenerator" 
         xmlns:viewmodel="clr-namespace:MockDataGenerator.MVVM.ViewModel"
         xmlns:extensions="clr-namespace:MockDataGenerator.Core"
+        xmlns:cnv="clr-namespace:MockDataGenerator.Converter"
         mc:Ignorable="d"
         Height="450" Width="800"
         WindowStyle="None"
@@ -15,6 +16,9 @@
     <Window.DataContext>
         <viewmodel:MainViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <cnv:BoolenToVisibilityConverter x:Key="BoolToVisibilityCnv"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50"/>
@@ -85,18 +89,6 @@
                             <DoubleAnimation Storyboard.TargetProperty="(Border.Width)"
                                              To="160"
                                              Duration="0:0:.1"/>
-                            <DoubleAnimation Storyboard.Target="{Binding Source={x:Reference MenuTitle}}"
-                                             Storyboard.TargetProperty="(Label.Width)"
-                                             To="140"
-                                             Duration="0:0:.1"/>
-                            <DoubleAnimation Storyboard.Target="{Binding Source={x:Reference MenuTitle}}"
-                                             Storyboard.TargetProperty="(Label.Height)"
-                                             To="60"
-                                             Duration="0:0:.1"/>
-                            <DoubleAnimation Storyboard.Target="{Binding Source={x:Reference LoginButton}}"
-                                             Storyboard.TargetProperty="(Button.Width)"
-                                             To="140"
-                                             Duration="0:0:.1"/>
                             <DoubleAnimation Storyboard.TargetName="WindowContentBlurrEffect"
                                              Storyboard.TargetProperty="Radius"
                                              To="10"
@@ -110,18 +102,6 @@
                             <DoubleAnimation Storyboard.TargetProperty="(Border.Width)"
                                              To="50"
                                              Duration="0:0:.1"/>
-                            <DoubleAnimation Storyboard.Target="{Binding Source={x:Reference MenuTitle}}"
-                                             Storyboard.TargetProperty="(Label.Width)"
-                                             To="40"
-                                             Duration="0:0:.1"/>
-                            <DoubleAnimation Storyboard.Target="{Binding Source={x:Reference MenuTitle}}"
-                                             Storyboard.TargetProperty="(Label.Height)"
-                                             To="40"
-                                             Duration="0:0:.1"/>
-                            <DoubleAnimation Storyboard.Target="{Binding Source={x:Reference LoginButton}}"
-                                             Storyboard.TargetProperty="(Button.Width)"
-                                             To="40"
-                                             Duration="0:0:.1"/>
                             <DoubleAnimation Storyboard.TargetName="WindowContentBlurrEffect"
                                              Storyboard.TargetProperty="Radius"
                                              To="0"
@@ -134,7 +114,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="100"/>
                     <RowDefinition Height="10"/>
                 </Grid.RowDefinitions>
                 <StackPanel>
@@ -158,14 +138,35 @@
                                  FontSize="18"
                                  extensions:Extensions.Icon="..\..\Icon\Popcorn.png"/>
                 </StackPanel>
-                
-                <Button Name="LoginButton"
-                        Grid.Row="1" 
+
+                <Border Grid.Row="1"
+                        VerticalAlignment="Bottom">
+                    <Button Name="LoginButton" 
+                            Width="40" Height="40"
+                            Content="Login"
+                            FontSize="18"
+                            Style="{StaticResource MenuLoginButtonTheme}"
+                            Command="{Binding OpenLoginViewCommand}"/>
+                    <Border.Style>
+                        <Style>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=UserButton, Path=Visibility}" Value="Visible">
+                                    <Setter Property="Border.Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                </Border>
+
+                <Button Name="UserButton"
+                        Grid.Row="1"
                         Width="40" Height="40"
-                        Content="Login"
+                        VerticalAlignment="Bottom"
+                        Content="{Binding User.Username}"
                         FontSize="18"
-                        Style="{StaticResource MenuLoginButtonTheme}"
-                        Command="{Binding OpenLoginViewCommand}"/>
+                        Visibility="{Binding IsUserLoggedIn, Converter={StaticResource BoolToVisibilityCnv}, Mode=TwoWay, FallbackValue=Hidden}"
+                        Style="{StaticResource MenuUserButtonTheme}"
+                        Command="{Binding LogoutCommand}"/>
             </Grid>
         </Border>
 

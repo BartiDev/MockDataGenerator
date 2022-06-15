@@ -4,7 +4,7 @@
                     xmlns:extensions="clr-namespace:MockDataGenerator.Core">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
-            <cnv:HeightToCornerRadiusConverter x:Key="HeightToCornerRadiusConverter"/>
+            <cnv:MultiplyValueConverter x:Key="MultiplyValueConverter"/>
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
     <Style TargetType="TextBox" x:Key="LoginFormTextBoxTheme">
@@ -14,9 +14,9 @@
                 <ControlTemplate>
                     <Border Width="{TemplateBinding Width}"
                             Height="{TemplateBinding Height}"
-                            CornerRadius="20"
+                            CornerRadius="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Height, Converter={StaticResource MultiplyValueConverter}, ConverterParameter=0.5}"
                             BorderThickness="1.5">
-                        <!--CornerRadius="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Height, Converter={StaticResource HeightToCornerRadiusConverter}}"-->
+                            <!--CornerRadius="20"-->
                         <Border.BorderBrush>
                             <SolidColorBrush Color="#270c27" Opacity=".6"/>
                         </Border.BorderBrush>
@@ -26,9 +26,10 @@
                         <Grid>
                             <Border Width="{TemplateBinding Height}"
                                     Height="{TemplateBinding Height}"
-                                    CornerRadius="20"
+                                    CornerRadius="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Height, Converter={StaticResource MultiplyValueConverter}, ConverterParameter=0.5}"
                                     BorderThickness="2"
                                     HorizontalAlignment="Left">
+                                    <!--CornerRadius="20"-->
                                 <Border.BorderBrush>
                                     <SolidColorBrush Color="#270c27" Opacity=".6"/>
                                 </Border.BorderBrush>

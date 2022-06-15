@@ -13,9 +13,9 @@
             <Setter Property="FontFamily" Value="Segoe UI Light"/>
         </Style>
     </UserControl.Resources>
-    <UserControl.DataContext>
+    <!--<UserControl.DataContext>
         <viewmodel:WelcomeViewModel/>
-    </UserControl.DataContext>
+    </UserControl.DataContext>-->
     <Grid>
         <StackPanel VerticalAlignment="Center"
                     HorizontalAlignment="Center">

@@ -8,20 +8,20 @@ using System.Windows.Data;
 
 namespace MockDataGenerator.Converter
 {
-    class HeightToCornerRadiusConverter : IValueConverter
+    class AddToValueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Int16 height = System.Convert.ToInt16(value);
-
-            return height / 2;
+            var param = Double.Parse(parameter.ToString(), culture);
+            var val = Double.Parse(value.ToString(), culture);
+            return val + param;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Int16 height = System.Convert.ToInt16(value);
-
-            return height * 2;
+            var param = Double.Parse(parameter.ToString(), culture);
+            var val = Double.Parse(value.ToString(), culture);
+            return val - param;
         }
     }
 }

@@ -6,13 +6,18 @@
              xmlns:local="clr-namespace:MockDataGenerator.MVVM.View"
              xmlns:extensions="clr-namespace:MockDataGenerator.Core"
              xmlns:viewmodel="clr-namespace:MockDataGenerator.MVVM.ViewModel"
+             xmlns:cnv="clr-namespace:MockDataGenerator.Converter"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Background="Transparent">
-    <UserControl.DataContext>
+    <!--<UserControl.DataContext>
         <viewmodel:LoginViewModel/>
-    </UserControl.DataContext>
-    
+    </UserControl.DataContext>-->
+    <UserControl.Resources>
+        <cnv:InverseBoolenToVisibilityConverter x:Key="InvBoolToVisibilityCnv"/>
+    </UserControl.Resources>
+
     <Grid>
         <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -50,10 +55,12 @@
                           Width="110" Height="30"
                           Foreground="White"
                           FontFamily="Segoe UI Light"
+                          FontSize="12"
                           IsChecked="{Binding RememberMe, Mode=TwoWay, FallbackValue=False}"
                           VerticalAlignment="Center"
                           Margin="15,0,0,0"
-                          Style="{StaticResource RedCheckBoxTheme}"/>
+                          Style="{StaticResource RedCheckBoxTheme}"
+                          Visibility="{Binding User.RememberMe, Converter={StaticResource InvBoolToVisibilityCnv}}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

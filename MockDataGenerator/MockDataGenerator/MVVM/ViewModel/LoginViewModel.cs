@@ -1,6 +1,7 @@
 ﻿using MockDataGenerator.Api.CredantialManager;
 using MockDataGenerator.Core;
 using MockDataGenerator.MVVM.Model;
+using MockDataGenerator.Store;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +12,23 @@ namespace MockDataGenerator.MVVM.ViewModel
 {
     class LoginViewModel
     {
+        private UserStore _userStore;
+
         public string Username { get; set; }
         public string ApiKey { get; set; }
         public bool RememberMe { get; set; }
+        public UserModel User { get; set; }
 
         public RelayCommand LoginCommand { get; set; }
 
-        public LoginViewModel()
+        public LoginViewModel(UserStore userStore)
         {
+            User = new UserModel();
+            _userStore = userStore;
             LoginCommand = new RelayCommand(o => Login());
 
             CheckForRememberedUser();
+            _userStore.UserLoggedOutEvent += OnUserLoggedOut;
         }
 
         private void Login()
@@ -30,6 +37,15 @@ namespace MockDataGenerator.MVVM.ViewModel
             {
                 if (RememberMe)
                     WindowsCredantialManager.SaveCredantials(Username, ApiKey);
+
+                _userStore.UserLoggedIn(new UserModel
+                {
+                    ApiKey = ApiKey,
+                    Username = Username,
+                    RememberMe = User.RememberMe ? true : RememberMe 
+                });
+
+                RememberMe = false;
             }
         }
 
@@ -41,7 +57,32 @@ namespace MockDataGenerator.MVVM.ViewModel
             {
                 ApiKey = user.ApiKey;
                 Username = user.Username;
+                User.RememberMe = true;
+            }
+            else
+            {
+                ApiKey = "";
+                Username = "";
+                User.RememberMe = false;
+            }
+
+            User.ApiKey = ApiKey;
+            User.Username = Username;
+        }
+
+        private void OnUserLoggedOut(bool forgetMe)
+        {
+            if(!forgetMe)
+                CheckForRememberedUser();
+            else
+            {
+                WindowsCredantialManager.DeleteCredantials();
+
+                ApiKey = "";
+                Username = "";
+                User.RememberMe = false;
             }
         }
+
     }
 }

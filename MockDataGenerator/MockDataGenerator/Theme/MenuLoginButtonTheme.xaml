@@ -65,7 +65,7 @@
                             </Setter>
                         </Trigger>
 
-                        <DataTrigger Binding="{Binding ElementName=ButtonBorder, Path=Width}" Value="140">
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}, AncestorLevel=2}, Path=IsMouseOver}" Value="True">
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
@@ -76,6 +76,9 @@
                                         <DoubleAnimation Storyboard.TargetName="LoginTextBlock"
                                                          Storyboard.TargetProperty="(TextBlock.Opacity)"
                                                          To="1"
+                                                         Duration="0:0:.1"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="Width"
+                                                         To="140"
                                                          Duration="0:0:.1"/>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -90,6 +93,9 @@
                                         <DoubleAnimation Storyboard.TargetName="LoginTextBlock"
                                                          Storyboard.TargetProperty="(TextBlock.Opacity)"
                                                          To="0"
+                                                         Duration="0:0:.1"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="Width"
+                                                         To="40"
                                                          Duration="0:0:.1"/>
                                     </Storyboard>
                                 </BeginStoryboard>

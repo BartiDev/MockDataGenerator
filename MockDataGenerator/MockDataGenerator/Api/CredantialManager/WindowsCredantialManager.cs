@@ -13,8 +13,7 @@ namespace MockDataGenerator.Api.CredantialManager
     {
         public static void SaveCredantials(string username, string apiKey)
         {
-            if (ReadCredantials() != null)
-                CredentialManager.DeleteCredential("BartiMock");
+            DeleteCredantials();
 
             CredentialManager.WriteCredential(
                 applicationName: "BartiMock",
@@ -39,6 +38,10 @@ namespace MockDataGenerator.Api.CredantialManager
                 return null;
         }
 
-        public static void DeleteCredantials() => CredentialManager.DeleteCredential("BartiMock");
+        public static void DeleteCredantials()
+        {
+            if (ReadCredantials() != null)
+                CredentialManager.DeleteCredential("BartiMock");
+        }
     }
 }

@@ -45,7 +45,7 @@
                     </Border>
                     
                     <ControlTemplate.Triggers>
-                        <DataTrigger Binding="{Binding ElementName=MenuTitle, Path=Width}" Value="140">
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=IsMouseOver}" Value="True">
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
@@ -56,6 +56,12 @@
                                         <DoubleAnimation Storyboard.TargetName="MenuTitleImage"
                                                          Storyboard.TargetProperty="(Image.Opacity)"
                                                          To="0"
+                                                         Duration="0:0:.1"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="Width"
+                                                         To="140"
+                                                         Duration="0:0:.1"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="Height"
+                                                         To="60"
                                                          Duration="0:0:.1"/>
                                     </Storyboard>
                                 </BeginStoryboard>
@@ -70,6 +76,12 @@
                                         <DoubleAnimation Storyboard.TargetName="MenuTitleImage"
                                                          Storyboard.TargetProperty="(Image.Opacity)"
                                                          To="1"
+                                                         Duration="0:0:.1"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="Width"
+                                                         To="40"
+                                                         Duration="0:0:.1"/>
+                                        <DoubleAnimation Storyboard.TargetProperty="Height"
+                                                         To="40"
                                                          Duration="0:0:.1"/>
                                     </Storyboard>
                                 </BeginStoryboard>
