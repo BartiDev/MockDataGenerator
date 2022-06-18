@@ -21,7 +21,7 @@
     <Grid>
         <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Margin="0,0,0,100">
+                    Margin="0,0,0,70">
             <TextBlock Text="Login"
                        FontFamily="Segoe UI Light"
                        FontSize="44"
@@ -59,9 +59,30 @@
                           IsChecked="{Binding RememberMe, Mode=TwoWay, FallbackValue=False}"
                           VerticalAlignment="Center"
                           Margin="15,0,0,0"
-                          Style="{StaticResource RedCheckBoxTheme}"
-                          Visibility="{Binding User.RememberMe, Converter={StaticResource InvBoolToVisibilityCnv}}"/>
+                          Style="{StaticResource RedCheckBoxTheme}"/>
+                          <!--Visibility="{Binding User.RememberMe, Converter={StaticResource InvBoolToVisibilityCnv}}"-->
             </StackPanel>
+
+            <TextBlock Name="FeedBackTextBlock"
+                       Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=FeedBackMessage}"
+                       FontFamily="Segoe UI Light"
+                       MaxWidth="300"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       Margin="0,20,0,0">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="#ff4d4d"/>
+                        <Setter Property="FontSize" Value="12"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text}" Value="Success!">
+                                <Setter  Property="Foreground" Value="White"/>
+                                <Setter Property="FontSize" Value="16"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
         </StackPanel>
     </Grid>
 </UserControl>

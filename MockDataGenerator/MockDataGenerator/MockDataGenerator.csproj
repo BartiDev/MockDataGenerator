@@ -25,6 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MockarooApiClient\MockarooApiClient.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Icon\Dice.png" />
     <Resource Include="Icon\LoginFormKey.png" />
     <Resource Include="Icon\LoginFormUser.png" />

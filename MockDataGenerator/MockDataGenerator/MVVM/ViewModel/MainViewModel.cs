@@ -1,4 +1,5 @@
-﻿using MockDataGenerator.Core;
+﻿using MockarooApiClient;
+using MockDataGenerator.Core;
 using MockDataGenerator.MVVM.Model;
 using MockDataGenerator.Store;
 using System;
@@ -20,6 +21,7 @@ namespace MockDataGenerator.MVVM.ViewModel
 
         public WelcomeViewModel WelcomeVM { get; set; }
         public LoginViewModel LoginVM { get; set; }
+        public GeneralViewModel GeneralVM { get; set; }
 
         public bool ForgetMe
         {
@@ -71,10 +73,11 @@ namespace MockDataGenerator.MVVM.ViewModel
 
         public MainViewModel()
         {
+            MockarooClient.Initialize();
             _userStore = new UserStore();
-
             WelcomeVM = new WelcomeViewModel();
             LoginVM = new LoginViewModel(_userStore);
+            GeneralVM = new GeneralViewModel();
 
             #region InsantiateCommands
             DragWindowCommand = new RelayCommand(o => { Application.Current.MainWindow.DragMove(); });
@@ -108,9 +111,9 @@ namespace MockDataGenerator.MVVM.ViewModel
 
         private void OnUserLogedIn(UserModel user)
         {
-            string credantials = user.Username + " " + user.ApiKey;
             User = user;
             IsUserLoggedIn = true;
+            CurrentView = GeneralVM;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using MockDataGenerator.Api.CredantialManager;
+﻿using MockarooApiClient;
+using MockarooApiClient.Data;
+using MockDataGenerator.Api.CredantialManager;
 using MockDataGenerator.Core;
 using MockDataGenerator.MVVM.Model;
 using MockDataGenerator.Store;
@@ -10,14 +12,26 @@ using System.Threading.Tasks;
 
 namespace MockDataGenerator.MVVM.ViewModel
 {
-    class LoginViewModel
+    class LoginViewModel : ObservableObject
     {
         private UserStore _userStore;
+        private string _feedBackMessage;
+
 
         public string Username { get; set; }
         public string ApiKey { get; set; }
         public bool RememberMe { get; set; }
         public UserModel User { get; set; }
+        public string FeedBackMessage
+        {
+            get { return _feedBackMessage; }
+            set 
+            { 
+                _feedBackMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public RelayCommand LoginCommand { get; set; }
 
@@ -31,21 +45,35 @@ namespace MockDataGenerator.MVVM.ViewModel
             _userStore.UserLoggedOutEvent += OnUserLoggedOut;
         }
 
-        private void Login()
+        private async void Login()
         {
             if (!String.IsNullOrEmpty(Username) && !String.IsNullOrEmpty(ApiKey))
             {
-                if (RememberMe)
-                    WindowsCredantialManager.SaveCredantials(Username, ApiKey);
-
-                _userStore.UserLoggedIn(new UserModel
+                GenericData genericData = new GenericData();
+                string connectionResult = await genericData.TryConnect(ApiKey);
+                if (String.IsNullOrEmpty(connectionResult))
                 {
-                    ApiKey = ApiKey,
-                    Username = Username,
-                    RememberMe = User.RememberMe ? true : RememberMe 
-                });
+                    if (RememberMe)
+                        WindowsCredantialManager.SaveCredantials(Username, ApiKey);
 
-                RememberMe = false;
+                    _userStore.UserLoggedIn(new UserModel
+                    {
+                        ApiKey = ApiKey,
+                        Username = Username,
+                        RememberMe = User.RememberMe ? true : RememberMe 
+                    });
+
+                    RememberMe = false;
+                    FeedBackMessage = "Success!";
+                }
+                else
+                {
+                    FeedBackMessage = connectionResult;
+                }
+            }
+            else
+            {
+                FeedBackMessage = "Neither Username nor ApiKey cannot be empty";
             }
         }
 
