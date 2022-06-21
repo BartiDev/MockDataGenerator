@@ -8,7 +8,7 @@
         xmlns:extensions="clr-namespace:MockDataGenerator.Core"
         xmlns:cnv="clr-namespace:MockDataGenerator.Converter"
         mc:Ignorable="d"
-        Height="450" Width="800"
+        Height="700" Width="1200"
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip"
         AllowsTransparency="True"
@@ -132,11 +132,18 @@
                     <RadioButton Content="General"
                                  Foreground="White"
                                  FontSize="18"
-                                 extensions:Extensions.Icon="..\..\Icon\Dice.png"/>
+                                 extensions:Extensions.Icon="..\..\Icon\Dice.png"
+                                 Command="{Binding OpenGeneralViewCommand}"/>
                     <RadioButton Content="BartiCinema"
                                  Foreground="White"
                                  FontSize="18"
-                                 extensions:Extensions.Icon="..\..\Icon\Popcorn.png"/>
+                                 extensions:Extensions.Icon="..\..\Icon\Popcorn.png"
+                                 Command="{Binding OpenBartiCinemaViewCommand}"/>
+                    <RadioButton Content="Sql Servers"
+                                 Foreground="White"
+                                 FontSize="18"
+                                 extensions:Extensions.Icon="..\..\Icon\Database.png"
+                                 Command="{Binding OpenSqlServersViewCommand}"/>
                 </StackPanel>
 
                 <Border Grid.Row="1"

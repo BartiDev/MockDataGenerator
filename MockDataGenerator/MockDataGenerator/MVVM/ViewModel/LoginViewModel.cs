@@ -64,7 +64,7 @@ namespace MockDataGenerator.MVVM.ViewModel
                     });
 
                     RememberMe = false;
-                    FeedBackMessage = "Success!";
+                    FeedBackMessage = "";
                 }
                 else
                 {

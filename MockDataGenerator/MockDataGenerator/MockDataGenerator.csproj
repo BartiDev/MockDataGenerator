@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icon\Database.png" />
     <None Remove="Icon\Dice.png" />
     <None Remove="Icon\DiceWhite.png" />
     <None Remove="Icon\LoginFormKey.png" />
@@ -20,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="Meziantou.Framework.Win32.CredentialManager" Version="1.4.2" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
   </ItemGroup>
@@ -29,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Icon\Database.png" />
     <Resource Include="Icon\Dice.png" />
     <Resource Include="Icon\LoginFormKey.png" />
     <Resource Include="Icon\LoginFormUser.png" />

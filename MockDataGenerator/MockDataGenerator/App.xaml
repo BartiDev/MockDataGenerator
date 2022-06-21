@@ -28,6 +28,18 @@
             <DataTemplate DataType="{x:Type vm:GeneralViewModel}">
                 <view:GeneralView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:BartiCinemaViewModel}">
+                <view:BartiCinemaView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:SqlServersViewModel}">
+                <view:SqlServersView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:GenerateRawTextViewModel}">
+                <view:GenerateRawTextView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:InsertIntoDatabaseViewModel}">
+                <view:InsertIntoDatabaseView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
