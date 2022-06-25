@@ -17,20 +17,22 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBox Text="{Binding Name}"/>
-                            <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.DataTypes}"
-                                      SelectedItem="{Binding DataType}">
-                                <!--<ComboBoxItem>
-                                    <TextBlock Text="{Binding DataTypes.Name}"/>
-                                </ComboBoxItem>-->
-                            </ComboBox>
-                            <TextBlock Text="{Binding Blank}"/>
+                            <TextBox Text="{Binding Name}"
+                                     MinWidth="150"/>
+                            <!--<ComboBox ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.DataTypes}"
+                                      SelectedItem="{Binding DataType}"
+                                      MinWidth="150">
+                            </ComboBox>-->
+                            <Button Content="{Binding DataType}"
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.ChooseDataTypeCommand}"/>
+                            <TextBlock Text="{Binding Blank}"
+                                       Width="50"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
             <Button Content="add another field"
-                    Command="{Binding AddAnotherFieldCommand}"/>
+                    Command="{Binding AddNextFieldCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

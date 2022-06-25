@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MockDataGenerator.MVVM.ViewModel
 {
-    class LoginViewModel : ObservableObject
+    class LoginViewModel : BaseViewModel
     {
         private UserStore _userStore;
         private string _feedBackMessage;

@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace MockDataGenerator.MVVM.Model
 {
-    public class DataTypeModel
+    public class DataFieldModel
     {
         public string Name { get; set; }
-        public string Type { get; set; }
-        public List<DataParameterModel> Parameters { get; set; }
-        public override string ToString() => Name;
+        public DataTypeModel DataType { get; set; }
+        public int Blank { get; set; }
     }
 }

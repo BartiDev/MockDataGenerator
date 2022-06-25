@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MockDataGenerator.MVVM.ViewModel
 {
-    public class SqlServersViewModel
+    public class SqlServersViewModel : BaseViewModel
     {
         public SqlServersViewModel()
         {

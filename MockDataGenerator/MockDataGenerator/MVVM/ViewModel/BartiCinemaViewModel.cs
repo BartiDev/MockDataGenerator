@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MockDataGenerator.MVVM.ViewModel
 {
-    public class BartiCinemaViewModel
+    public class BartiCinemaViewModel : BaseViewModel
     {
         public BartiCinemaViewModel()
         {

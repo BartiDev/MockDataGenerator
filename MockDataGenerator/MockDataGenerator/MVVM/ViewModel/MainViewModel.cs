@@ -14,12 +14,13 @@ using System.Windows;
 
 namespace MockDataGenerator.MVVM.ViewModel
 {
-    class MainViewModel : ObservableObject
+    class MainViewModel : BaseViewModel
     {
         private readonly UserStore _userStore;
         private readonly DataTypeStore _dataTypeStore;
+        private readonly ModalNavigationStore _modalNavigationStore;
         private readonly IMapper _mapper;
-        private object _currentView;
+        private BaseViewModel _currentView;
         private UserModel _user;
         private bool _isUserLoggedIn;
         private bool _forgetMe;
@@ -57,7 +58,7 @@ namespace MockDataGenerator.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-        public object CurrentView
+        public BaseViewModel CurrentView
         {
             get { return _currentView; }
             set 
@@ -66,6 +67,14 @@ namespace MockDataGenerator.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+        public BaseViewModel CurrentModalView => _modalNavigationStore.CurrentModalView;
+
+        public bool IsModalViewOpen
+        {
+            get { return _modalNavigationStore.IsModalViewOpen; }
+            set { _modalNavigationStore.IsModalViewOpen = value; }
+        }
+
 
 
         #region Commands
@@ -79,6 +88,7 @@ namespace MockDataGenerator.MVVM.ViewModel
         public RelayCommand OpenBartiCinemaViewCommand { get; set; }
         public RelayCommand OpenSqlServersViewCommand { get; set; }
         public RelayCommand LogoutCommand { get; set; }
+        public ModalNavigationStore OnModalViewChanged { get; }
         #endregion
 
         public MainViewModel()
@@ -86,10 +96,11 @@ namespace MockDataGenerator.MVVM.ViewModel
             MockarooClient.Initialize();
             _userStore = new UserStore();
             _dataTypeStore = new DataTypeStore();
+            _modalNavigationStore = new ModalNavigationStore();
             _mapper = MyMapper.GetMapper();
             WelcomeVM = new WelcomeViewModel();
             LoginVM = new LoginViewModel(_userStore);
-            GeneralVM = new GeneralViewModel(_userStore, _dataTypeStore);
+            GeneralVM = new GeneralViewModel(_userStore, _dataTypeStore, _modalNavigationStore);
             BartiCinemaVM = new BartiCinemaViewModel();
             SqlServersVM = new SqlServersViewModel();
 
@@ -115,6 +126,7 @@ namespace MockDataGenerator.MVVM.ViewModel
             CurrentView = WelcomeVM;
 
             _userStore.UserLoggedInEvent += OnUserLogedIn;
+            _modalNavigationStore.CurrentModalViewChangedEvent += OnCurrentModalViewChanged;
         }
 
         private void LogoutUser()
@@ -134,8 +146,14 @@ namespace MockDataGenerator.MVVM.ViewModel
 
             // Get DataTypes and send to the rest of the viewModels
             DataTypeData dataTypeData = new DataTypeData();
-            List<DataTypeModel> dataTypes = _mapper.Map<List<DataTypeModel>>(await dataTypeData.Get(User.ApiKey));
-            _dataTypeStore.DataTypesLoaded(dataTypes);
+            _dataTypeStore.DataTypes = _mapper.Map<List<DataTypeModel>>(await dataTypeData.Get(User.ApiKey));
         }
+
+        private void OnCurrentModalViewChanged()
+        {
+            OnPropertyChanged(nameof(CurrentModalView));
+            OnPropertyChanged(nameof(IsModalViewOpen));
+        }
+
     }
 }

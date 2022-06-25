@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="./Theme/LoginFormTextBoxTheme.xaml"/>
                 <ResourceDictionary Source="./Theme/RedButtonTheme.xaml"/>
                 <ResourceDictionary Source="./Theme/RedCheckBoxTheme.xaml"/>
+                <ResourceDictionary Source="./CustomControl/Theme/ModalTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <!-- Register VMs -->
@@ -39,6 +40,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:InsertIntoDatabaseViewModel}">
                 <view:InsertIntoDatabaseView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:DataTypesViewModel}">
+                <view:DataTypesView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

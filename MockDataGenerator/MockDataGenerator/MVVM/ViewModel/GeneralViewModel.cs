@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace MockDataGenerator.MVVM.ViewModel
 {
-    class GeneralViewModel : ObservableObject
+    class GeneralViewModel : BaseViewModel
     {
         private object _currentView;
         private readonly UserStore _userStore;
         private readonly DataTypeStore _dataTypeStore;
+        private readonly ModalNavigationStore _modalNavigationStore;
 
         #region Properties
         public GenerateRawTextViewModel GenerateRawTextVM { get; set; }
@@ -34,11 +35,12 @@ namespace MockDataGenerator.MVVM.ViewModel
         #endregion
 
 
-        public GeneralViewModel(UserStore userStore, DataTypeStore dataTypeStore)
+        public GeneralViewModel(UserStore userStore, DataTypeStore dataTypeStore, ModalNavigationStore modalNavigationStore)
         {
             _userStore = userStore;
             _dataTypeStore = dataTypeStore;
-            GenerateRawTextVM = new GenerateRawTextViewModel(_userStore, _dataTypeStore);
+            _modalNavigationStore = modalNavigationStore;
+            GenerateRawTextVM = new GenerateRawTextViewModel(_userStore, _dataTypeStore, _modalNavigationStore);
             InsertIntoDatabaseVM = new InsertIntoDatabaseViewModel();
 
             OpenGenerateRawTextViewCommand = new RelayCommand(o => { CurrentView = GenerateRawTextVM; });

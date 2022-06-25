@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:MockDataGenerator" 
         xmlns:viewmodel="clr-namespace:MockDataGenerator.MVVM.ViewModel"
         xmlns:extensions="clr-namespace:MockDataGenerator.Core"
-        xmlns:cnv="clr-namespace:MockDataGenerator.Converter"
+        xmlns:cnv="clr-namespace:MockDataGenerator.Converter" 
+        xmlns:custom="clr-namespace:MockDataGenerator.CustomControl"
         mc:Ignorable="d"
         Height="700" Width="1200"
         WindowStyle="None"
@@ -179,17 +180,21 @@
 
         <Grid Grid.Column="1"
               Grid.Row="1"
-              Panel.ZIndex="-1">
+              Panel.ZIndex="-10">
             <Grid.Effect>
                 <BlurEffect x:Name="WindowContentBlurrEffect" Radius="0"/>
             </Grid.Effect>
-            
-            <ContentPresenter Content="{Binding CurrentView}"/>
+
+            <custom:Modal Content="{Binding CurrentModalView}"
+                          IsOpen="{Binding IsModalViewOpen, Mode=TwoWay}"/>
+
+            <ContentPresenter Content="{Binding CurrentView}"
+                              Panel.ZIndex="-5"/>
             
             <Image IsHitTestVisible="False" 
                    Source="/Icon/WorkspaceBackground.png"
                    Opacity=".1"
-                   Panel.ZIndex="-2"/>
+                   Panel.ZIndex="-20"/>
             
         </Grid>
         

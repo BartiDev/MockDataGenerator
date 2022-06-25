@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MockDataGenerator.MVVM.ViewModel
 {
-    public class WelcomeViewModel
+    public class WelcomeViewModel : BaseViewModel
     {
         public RelayCommand GoToMockarooCommand { get; set; }
         public WelcomeViewModel()

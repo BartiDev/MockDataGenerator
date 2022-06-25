@@ -9,11 +9,23 @@ namespace MockDataGenerator.Store
 {
     public class DataTypeStore
     {
-        public event Action<List<DataTypeModel>> DataTypesLoadedEvent;
+        public event Action DataTypesChangedEvent;
 
-        public void DataTypesLoaded(List<DataTypeModel> dataTypes)
+        private List<DataTypeModel> _dataTypes;
+
+        public List<DataTypeModel> DataTypes
         {
-            DataTypesLoadedEvent?.Invoke(dataTypes);
+            get { return _dataTypes; }
+            set 
+            { 
+                _dataTypes = value;
+                OnDataTypesChanged();
+            }
+        }
+
+        private void OnDataTypesChanged()
+        {
+            DataTypesChangedEvent?.Invoke();
         }
     }
 }

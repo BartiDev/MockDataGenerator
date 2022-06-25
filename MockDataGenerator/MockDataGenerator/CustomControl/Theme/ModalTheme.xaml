@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:custom="clr-namespace:MockDataGenerator.CustomControl">
+    <Style TargetType="{x:Type custom:Modal}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type custom:Modal}">
+                    <ControlTemplate.Resources>
+                        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+                    </ControlTemplate.Resources>
+
+                    <Grid x:Name="ModalGrid" 
+                          Background="{TemplateBinding Background}"
+                          Visibility="{TemplateBinding IsOpen, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Border BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                UseLayoutRounding="True"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="15" ShadowDepth="8" Color="Black"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Grid.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=Border}"/>
+                                </Grid.OpacityMask>
+                                <Border x:Name="Border"
+                                        CornerRadius="3"
+                                        Background="White"/>
+                                <ContentControl Content="{TemplateBinding Content}"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
