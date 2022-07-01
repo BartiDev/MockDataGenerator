@@ -1,4 +1,5 @@
-﻿using MockDataGenerator.MVVM.Model;
+﻿using MockDataGenerator.Core;
+using MockDataGenerator.MVVM.Model;
 using MockDataGenerator.Store;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,18 @@ namespace MockDataGenerator.MVVM.ViewModel
         private readonly DataTypeStore _dataTypeStore;
 
         public ObservableCollection<DataTypeModel> DataTypes => new ObservableCollection<DataTypeModel>(_dataTypeStore.DataTypes);
+        public DataTypeModel SelectedDataType { get; set; }
+
+        /*** Commands ***/
+        public RelayCommand DataTypeSelectedCommand { get; set; }
         public DataTypesViewModel(DataTypeStore dataTypeStore)
         {
             _dataTypeStore = dataTypeStore;
+
+            DataTypeSelectedCommand = new RelayCommand(o => {
+                _dataTypeStore.DataTypeSelected((DataTypeModel)o);
+                });
+
             _dataTypeStore.DataTypesChangedEvent += OnDataTypesChanged;
         }
 

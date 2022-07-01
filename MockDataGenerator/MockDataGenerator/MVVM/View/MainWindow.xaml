@@ -9,7 +9,7 @@
         xmlns:cnv="clr-namespace:MockDataGenerator.Converter" 
         xmlns:custom="clr-namespace:MockDataGenerator.CustomControl"
         mc:Ignorable="d"
-        Height="700" Width="1200"
+        Height="700" Width="1400"
         WindowStyle="None"
         ResizeMode="CanResizeWithGrip"
         AllowsTransparency="True"

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MockarooApiClient.Helpers;
+using MockarooApiClient.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -37,6 +39,23 @@ namespace MockarooApiClient.Data
                 }
             }
 
+            return result;
+        }
+
+        public async Task<string> GenerateData(string apiKey, int rowsToGenerate, List<DataFieldDTO> dataFields)
+        {
+            string url = $"https://api.mockaroo.com/api/generate.json?key={apiKey}&count={rowsToGenerate}";
+            string result = "";
+            MessageContentBuilder messageBuilder = new MessageContentBuilder();
+            StringContent content = new StringContent(messageBuilder.BuildMessage(dataFields));
+
+            using(HttpResponseMessage response = await MockarooClient.Client.PostAsync(url, content))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    result = await response.Content.ReadAsStringAsync();
+                }
+            }
             return result;
         }
     }

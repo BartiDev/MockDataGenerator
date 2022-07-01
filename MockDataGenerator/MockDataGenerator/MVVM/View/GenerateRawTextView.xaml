@@ -3,36 +3,105 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MockDataGenerator.MVVM.View"
+             xmlns:local="clr-namespace:MockDataGenerator.MVVM.View" 
+             xmlns:cnv="clr-namespace:MockDataGenerator.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <cnv:IsCollectionPopulateConverter x:Key="IsCollectionPopulateConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel>
+        <StackPanel Grid.Column="0">
             <ListView ItemsSource="{Binding DataFields}">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="IsSelected" Value="True"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <TextBox Text="{Binding Name}"
                                      MinWidth="150"/>
-                            <!--<ComboBox ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.DataTypes}"
-                                      SelectedItem="{Binding DataType}"
-                                      MinWidth="150">
-                            </ComboBox>-->
-                            <Button Content="{Binding DataType}"
-                                    Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.ChooseDataTypeCommand}"/>
+                            <Button Name="DataTypeButton"
+                                    Content="{Binding DataType}"
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.ChooseDataTypeCommand}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=SelectedIndex}"/>
+                            <ListView ItemsSource="{Binding DataType.Parameters}">
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}"/>
+                                            <TextBox Name="PropertyValue" 
+                                                     Text="{Binding Value}"
+                                                     MinWidth="50"/>
+                                            <ComboBox Name="PropertyFormats" 
+                                                      ItemsSource="{Binding Values}"
+                                                      SelectedItem="{Binding Value, Mode=TwoWay}"
+                                                      Visibility="Collapsed"/>
+                                        </StackPanel>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding Values, Converter={StaticResource IsCollectionPopulateConverter}}" Value="True">
+                                                <Setter TargetName="PropertyValue" Property="Visibility" Value="Collapsed"/>
+                                                <Setter TargetName="PropertyFormats" Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <TextBlock Text="blank: "/>
                             <TextBlock Text="{Binding Blank}"
                                        Width="50"/>
+                            <Button Content="⨉"
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.DeleteFieldCommand}"
+                                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ListView}, Path=SelectedIndex}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Content="add another field"
-                    Command="{Binding AddNextFieldCommand}"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Content="add another field"
+                        Command="{Binding AddNextFieldCommand}"
+                        Grid.Column="0"
+                        HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal"
+                            Grid.Column="1"
+                        HorizontalAlignment="Center">
+                    <Button Content="Generate"
+                            Command="{Binding GenerateDataCommand}"/>
+                    <TextBox Text="{Binding RowsToGenerate}"
+                             MinWidth="50"/>
+                    <TextBlock Text="Rows"/>
+                </StackPanel>
+            </Grid>
         </StackPanel>
+
+        <DockPanel Grid.Column="1">
+            <StackPanel DockPanel.Dock="Top">
+                <Button Content="Format to JSON"
+                        MaxWidth="200"
+                        Command="{Binding FormatToJsonCommand}"/>
+            </StackPanel>
+            <TextBox Text="{Binding GeneratedData}"
+                     TextWrapping="Wrap"/>
+        </DockPanel>
     </Grid>
 </UserControl>

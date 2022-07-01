@@ -100,7 +100,7 @@ namespace MockDataGenerator.MVVM.ViewModel
             _mapper = MyMapper.GetMapper();
             WelcomeVM = new WelcomeViewModel();
             LoginVM = new LoginViewModel(_userStore);
-            GeneralVM = new GeneralViewModel(_userStore, _dataTypeStore, _modalNavigationStore);
+            GeneralVM = new GeneralViewModel(_userStore, _dataTypeStore, _modalNavigationStore, _mapper);
             BartiCinemaVM = new BartiCinemaViewModel();
             SqlServersVM = new SqlServersViewModel();
 

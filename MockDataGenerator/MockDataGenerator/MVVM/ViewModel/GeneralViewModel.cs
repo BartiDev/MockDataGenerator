@@ -1,4 +1,5 @@
-﻿using MockDataGenerator.Core;
+﻿using AutoMapper;
+using MockDataGenerator.Core;
 using MockDataGenerator.Store;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace MockDataGenerator.MVVM.ViewModel
         private readonly UserStore _userStore;
         private readonly DataTypeStore _dataTypeStore;
         private readonly ModalNavigationStore _modalNavigationStore;
+        private readonly IMapper _mapper;
 
         #region Properties
         public GenerateRawTextViewModel GenerateRawTextVM { get; set; }
@@ -35,12 +37,14 @@ namespace MockDataGenerator.MVVM.ViewModel
         #endregion
 
 
-        public GeneralViewModel(UserStore userStore, DataTypeStore dataTypeStore, ModalNavigationStore modalNavigationStore)
+        public GeneralViewModel(UserStore userStore, DataTypeStore dataTypeStore, ModalNavigationStore modalNavigationStore,
+            IMapper mapper)
         {
             _userStore = userStore;
             _dataTypeStore = dataTypeStore;
             _modalNavigationStore = modalNavigationStore;
-            GenerateRawTextVM = new GenerateRawTextViewModel(_userStore, _dataTypeStore, _modalNavigationStore);
+            _mapper = mapper;
+            GenerateRawTextVM = new GenerateRawTextViewModel(_userStore, _dataTypeStore, _modalNavigationStore, _mapper);
             InsertIntoDatabaseVM = new InsertIntoDatabaseViewModel();
 
             OpenGenerateRawTextViewCommand = new RelayCommand(o => { CurrentView = GenerateRawTextVM; });
